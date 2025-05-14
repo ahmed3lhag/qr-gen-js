@@ -7,7 +7,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-/* Header Styles */
 header {
     background: rgba(31, 42, 68, 0.95);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -39,7 +38,6 @@ header {
     height: 0.1875rem;
     background: #60a5fa;
 }
-/* Subheader with Language Logo */
 .subheader {
     text-align: center;
     margin: 1.5rem 0;
@@ -60,7 +58,6 @@ header {
     background: url('https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png') no-repeat center center;
     background-size: contain;
 }
-/* Main Content Styles */
 .main-content {
     flex: 1;
     display: flex;
@@ -131,10 +128,16 @@ button:disabled {
     margin-top: 1.5rem;
     text-align: center;
 }
+#qr-container {
+    margin: 1rem 0;
+    display: none; /* Hide the container to avoid showing canvas */
+}
 #qr-image {
     max-width: 100%;
     height: auto;
     display: none;
+    border: 2px solid #60a5fa;
+    border-radius: 4px;
 }
 #download-btn {
     margin-top: 1rem;
@@ -154,7 +157,6 @@ button:disabled {
 .error {
     color: #f87171;
 }
-/* Footer Styles */
 footer {
     background: #334155;
     color: #e2e8f0;
