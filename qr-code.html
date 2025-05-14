@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Elhag - QR Code Generator (JS)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="qr-gen-js.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">Ahmed <span>Elhag</span></div>
+    </header>
+
+    <!-- Subheader -->
+    <div class="subheader">
+        <h3>QR Code Generator with JavaScript</h3>
+        <span class="language-logo"></span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h2>QR Code Generator</h2>
+            <input type="text" id="qr-text" placeholder="Enter text for QR code" required>
+            <button id="generate-btn" onclick="generateQR()">
+                <span id="btn-text">Generate QR Code</span>
+                <span id="spinner" class="spinner"></span>
+            </button>
+            <div id="output">
+                <img id="qr-image" alt="Generated QR Code">
+                <button id="download-btn">Download QR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <a href="https://github.com/ahmed3lhag" class="footer-social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/ahmed3lhag" class="footer-social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://x.com/ahmed3lhag" class="footer-social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="https://t.me/ahmed3lhag" class="footer-social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+        </div>
+        <p class="copyright">© <span id="year"></span> Ahmed Elhag. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        // Set the current year in the footer
+        document.getElementById("year").innerText = new Date().getFullYear();
+
+        function generateQR() {
+            const qrText = document.getElementById("qr-text").value;
+            const outputDiv = document.getElementById("output");
+            const generateBtn = document.getElementById("generate-btn");
+            const btnText = document.getElementById("btn-text");
+            const spinner = document.getElementById("spinner");
+            const qrImage = document.getElementById("qr-image");
+            const downloadBtn = document.getElementById("download-btn");
+
+            // Reset output and show loading state
+            outputDiv.innerText = "";
+            qrImage.style.display = "none";
+            downloadBtn.style.display = "none";
+            generateBtn.disabled = true;
+            btnText.innerText = "Generating...";
+            spinner.style.display = "inline-block";
+
+            // Validate input
+            if (!qrText) {
+                outputDiv.classList.add("error");
+                outputDiv.innerText = "Please enter text for the QR code";
+                generateBtn.disabled = false;
+                btnText.innerText = "Generate QR Code";
+                spinner.style.display = "none";
+                return;
+            }
+
+            try {
+                // Generate QR code using qrcode.js
+                const qr = new QRCode(document.getElementById("output"), {
+                    text: qrText,
+                    width: 256,
+                    height: 256,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+
+                // Wait for QR code to render
+                setTimeout(() => {
+                    const canvas = document.querySelector("#output canvas");
+                    if (canvas) {
+                        qrImage.src = canvas.toDataURL("image/png");
+                        qrImage.style.display = "block";
+                        downloadBtn.onclick = () => {
+                            const a = document.createElement("a");
+                            a.href = canvas.toDataURL("image/png");
+                            a.download = "qr_code.png";
+                            a.click();
+                        };
+                        downloadBtn.style.display = "block";
+                    } else {
+                        throw new Error("Failed to generate QR code image");
+                    }
+                }, 500); // Delay to ensure rendering
+            } catch (error) {
+                outputDiv.classList.add("error");
+                outputDiv.innerText = `Error: ${error.message}`;
+            } finally {
+                // Reset button state
+                generateBtn.disabled = false;
+                btnText.innerText = "Generate QR Code";
+                spinner.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

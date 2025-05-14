@@ -1,0 +1,184 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #1f2a44;
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/* Header Styles */
+header {
+    background: rgba(31, 42, 68, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 1rem 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    position: relative;
+}
+.logo span {
+    color: #e2e8f0;
+}
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 0.1875rem;
+    background: #60a5fa;
+}
+/* Subheader with Language Logo */
+.subheader {
+    text-align: center;
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+.subheader h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #c0c8d8;
+}
+.language-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-block;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png') no-repeat center center;
+    background-size: contain;
+}
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+.container {
+    text-align: center;
+    padding: 2rem;
+    background: #334155;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+}
+h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #e2e8f0;
+}
+input {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #475569;
+    border-radius: 4px;
+    background: #2d3748;
+    color: #e2e8f0;
+    width: 100%;
+    font-size: 1rem;
+}
+button {
+    padding: 0.75rem 1.5rem;
+    background-color: #60a5fa;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+button:hover {
+    background-color: #3b82f6;
+}
+button:disabled {
+    background-color: #475569;
+    cursor: not-allowed;
+}
+.spinner {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #e2e8f0;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#output {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+#qr-image {
+    max-width: 100%;
+    height: auto;
+    display: none;
+}
+#download-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4ade80;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: none;
+}
+#download-btn:hover {
+    background-color: #22c55e;
+}
+.error {
+    color: #f87171;
+}
+/* Footer Styles */
+footer {
+    background: #334155;
+    color: #e2e8f0;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+.footer-social-link {
+    font-size: 1.2rem;
+    color: #c0c8d8;
+    transition: all 0.3s ease;
+}
+.footer-social-link:hover {
+    color: #60a5fa;
+    transform: scale(1.2);
+}
+.copyright {
+    font-size: 0.8rem;
+    color: #c0c8d8;
+    margin-top: 0.5rem;
+}
