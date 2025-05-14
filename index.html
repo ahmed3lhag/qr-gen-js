@@ -6,6 +6,7 @@
     <title>Ahmed Elhag - QR Code Generator (JS)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="qr-gen-js.css">
+    
 </head>
 <body>
     <!-- Header -->
@@ -29,6 +30,7 @@
                 <span id="spinner" class="spinner"></span>
             </button>
             <div id="output">
+                <div id="qr-container"></div>
                 <img id="qr-image" alt="Generated QR Code">
                 <button id="download-btn">Download QR</button>
             </div>
@@ -57,11 +59,12 @@
             const generateBtn = document.getElementById("generate-btn");
             const btnText = document.getElementById("btn-text");
             const spinner = document.getElementById("spinner");
+            const qrContainer = document.getElementById("qr-container");
             const qrImage = document.getElementById("qr-image");
             const downloadBtn = document.getElementById("download-btn");
 
             // Reset output and show loading state
-            outputDiv.innerText = "";
+            qrContainer.innerHTML = ""; // Clear QR container
             qrImage.style.display = "none";
             downloadBtn.style.display = "none";
             generateBtn.disabled = true;
@@ -80,7 +83,7 @@
 
             try {
                 // Generate QR code using qrcode.js
-                const qr = new QRCode(document.getElementById("output"), {
+                new QRCode(qrContainer, {
                     text: qrText,
                     width: 256,
                     height: 256,
@@ -91,24 +94,28 @@
 
                 // Wait for QR code to render
                 setTimeout(() => {
-                    const canvas = document.querySelector("#output canvas");
+                    const canvas = qrContainer.querySelector("canvas");
                     if (canvas) {
-                        qrImage.src = canvas.toDataURL("image/png");
+                        const imageSrc = canvas.toDataURL("image/png");
+                        qrImage.src = imageSrc; // Display the image
                         qrImage.style.display = "block";
+                        downloadBtn.style.display = "block";
                         downloadBtn.onclick = () => {
                             const a = document.createElement("a");
-                            a.href = canvas.toDataURL("image/png");
+                            a.href = imageSrc; // Download the same image
                             a.download = "qr_code.png";
                             a.click();
                         };
-                        downloadBtn.style.display = "block";
+                        qrContainer.style.display = "none"; // Hide the canvas container
+                        qrContainer.innerHTML = ""; // Clear the canvas after conversion
                     } else {
-                        throw new Error("Failed to generate QR code image");
+                        throw new Error("Failed to generate QR code canvas");
                     }
-                }, 500); // Delay to ensure rendering
+                }, 600);
             } catch (error) {
                 outputDiv.classList.add("error");
                 outputDiv.innerText = `Error: ${error.message}`;
+                console.log("Debug Error:", error);
             } finally {
                 // Reset button state
                 generateBtn.disabled = false;
